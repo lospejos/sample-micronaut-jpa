@@ -92,7 +92,7 @@ public class Staff extends OrmActiveRecord<Staff> implements UserState {
     }
 
     public static Staff register(final OrmRepository rep, final PasswordEncoder encoder, RegStaff p) {
-        Validator.validate((v) -> v.checkField(!get(rep, p.id).isPresent(), "id", ErrorKeys.DuplicateId));
+        Validator.validate((v) -> v.checkField(get(rep, p.id).isEmpty(), "id", ErrorKeys.DuplicateId));
         return p.create(encoder.encode(p.plainPassword)).save(rep);
     }
 
